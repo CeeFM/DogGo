@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Profile";
 }
+<div class="container-fluid mx-0">
 <div>
-    <h1 class="mb-4">Walker Profile</h1>
+    <h1 class="walkerProfile pb-3">Walker Profile</h1>
 
-    <section class="container">
-        <img style="width:100px;float:left;margin-right:20px"
+    <section class="container walkerProfile">
+        <img style="width:100px;float:left;margin-right:20px;padding-bottom:1rem;"
              src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Font_Awesome_5_regular_user-circle.svg" />
         <div>
             <label class="font-weight-bold">Name:</label>
@@ -18,15 +19,13 @@
             <span>@Model.Walker.Neighborhood.Name</span>
         </div>
     </section>
+    <div class="clearfix walkerProfile"></div>
 
-    <hr class="mt-5" />
-    <div class="clearfix"></div>
-
-    <div class="row">
+    <div class="row" style="min-height: 100vh;">
         <section class="col-8 container mt-5">
-            <h1 class="text-left">Recent Walks</h1>
+            <h2 class="text-left">Recent Walks</h2>
 
-            <div class="row">
+            <div class="table-container">
                 <table class="table">
                     <thead>
                         <tr>
@@ -44,7 +43,7 @@
                     </thead>
                 @foreach (Walks walk in Model.Walks)
                 {
-                    <div class="card m-4" style="width: 18rem;">
+                    <div class="card no-decoration" style="width: 18rem;">
                         @if (String.IsNullOrEmpty(walk.Walker.Name))
                         {
                             <div>
@@ -56,15 +55,15 @@
                         {
 
                                 <tbody>
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => walk.Date)
+                                        <tr class="no-decoration">
+                                            <td class="no-decoration">
+                                                @walk.Date.ToString("MM/dd/yyyy")
                                             </td>
-                                            <td>
+                                            <td class="no-decoration">
                                                 @Html.DisplayFor(modelItem => walk.Dog.Owner.Name)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => walk.Duration)
+                                            <td class="no-decoration">
+                                                @(walk.Duration / 60) min
                                             </td>
                                         </tr>
                    
@@ -77,8 +76,33 @@
             </div>
         </section>
 
-        <section class="col-lg-4 col-md-8 container mt-5">
-            <h1>Total Walk Time: </h1>
+        <section class="col-lg-4 col-md-8 container walkTime mb-5">
+            @{
+                int duration = Model.Walks.Sum(i => i.Duration);
+                int hours;
+                int minutes;
+                int remainingMinutes;
+                if (duration >= 60)
+                {
+                    minutes = duration / 60;
+                    hours = minutes / 60;
+                    remainingMinutes = minutes % 60;
+                }
+                else
+                {
+                    hours = 0;
+                    remainingMinutes = 0;
+                    minutes = duration / 60;
+                }
+            }
+
+        <h2 class="mt-5">
+            Total Walk Time:
+            
+                   @(hours >= 1 ? hours.ToString() + " hr " + remainingMinutes.ToString() + " min" : minutes + " min")
+
+                   </h2>
         </section>
     </div>
+</div>
 </div>

@@ -1,12 +1,29 @@
-html {
-  font-size: 14px;
+
+.walkerProfile{
+    background-color: lightgray;
+    margin-right: 0;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+th {
+    color: darkgray;
 }
+.table thead th {
+    border-top: none;
+    border-bottom: none;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.table-container {
+    padding-top: 1rem;
+}
+
+.walkTime {
+    background-color: lightsteelblue;
+}
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -15,12 +32,18 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  margin: 0;
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
 }
 
 .dogName {
     font-style: italic;
+}
+
+.no-decoration {
+    border: none;
+    box-shadow: none;
 }
