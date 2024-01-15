@@ -104,19 +104,19 @@ namespace DogGo.Repositories
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration")),
                             Walker = new Walker
                             {
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Name = reader.GetString(reader.GetOrdinal("WalkerName")),
                                 Id = reader.GetInt32(reader.GetOrdinal("WalkerRealId")),
                                 ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
                                 NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
                             },
                             Dog = new Dog
                             {
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Name = reader.GetString(reader.GetOrdinal("DogName")),
                                 Id = reader.GetInt32(reader.GetOrdinal("DogId")),
                                 Breed = reader.GetString(reader.GetOrdinal("Breed")),
                                 OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
-                                Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                                ImageUrl = reader.GetString(reader.GetOrdinal("DogImage")),
+                                Notes = "",
+                                ImageUrl = "",
                             }
                         };
 
@@ -219,6 +219,26 @@ namespace DogGo.Repositories
                     int id = (int)cmd.ExecuteScalar();
 
                     walk.Id = id;
+                }
+            }
+        }
+
+        public void DeleteWalk(int walkId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Walks
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", walkId);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
