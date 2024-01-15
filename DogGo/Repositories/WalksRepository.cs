@@ -48,19 +48,19 @@ namespace DogGo.Repositories
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration")),
                             Walker = new Walker
                             {
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Name = reader.GetString(reader.GetOrdinal("WalkerName")),
                                 Id = reader.GetInt32(reader.GetOrdinal("WalkerRealId")),
                                 ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
                                 NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
                             },
                             Dog = new Dog
                             {
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Name = reader.GetString(reader.GetOrdinal("DogName")),
                                 Id = reader.GetInt32(reader.GetOrdinal("DogId")),
                                 Breed = reader.GetString(reader.GetOrdinal("Breed")),
                                 OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
-                                Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                                ImageUrl = reader.GetString(reader.GetOrdinal("DogImage")),
+                                Notes = "",
+                                ImageUrl = "",
                             }
                         };
 
@@ -194,6 +194,31 @@ namespace DogGo.Repositories
                     reader.Close();
 
                     return walks;
+                }
+            }
+        }
+
+        public void AddWalk(Walks walk)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO Walks (Date, WalkerId, DogId, Duration)
+                    OUTPUT INSERTED.ID
+                    VALUES (@date, @walkerid, @dogid, @duration);
+                ";
+
+                    cmd.Parameters.AddWithValue("@date", walk.Date);
+                    cmd.Parameters.AddWithValue("@walkerid", walk.WalkerId);
+                    cmd.Parameters.AddWithValue("@dogid", walk.DogId);
+                    cmd.Parameters.AddWithValue("@duration", walk.Duration);
+
+                    int id = (int)cmd.ExecuteScalar();
+
+                    walk.Id = id;
                 }
             }
         }

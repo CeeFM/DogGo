@@ -25,21 +25,33 @@ namespace DogGo.Controllers
         // GET: WalksController/Create
         public ActionResult Create()
         {
-            return View();
+            List<Walker> walkers = _walkerRepo.GetAllWalkers();
+            List<Dog> dogs = _dogRepo.GetAllDogs();
+
+            WalkFormViewModel vm = new WalkFormViewModel()
+            {
+                Walk = new Walks(),
+                Dogs = dogs,
+                Walkers = walkers
+            };
+
+            return View(vm);
         }
 
         // POST: WalksController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Walks walk)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _walksRepo.AddWalk(walk);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(walk);
             }
         }
 

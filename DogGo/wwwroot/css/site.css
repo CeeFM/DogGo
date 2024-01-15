@@ -1,7 +1,6 @@
 
 .walkerProfile{
     background-color: lightgray;
-    margin-right: 0;
 }
 
 th {
@@ -17,7 +16,7 @@ th {
 }
 
 .table-container {
-    padding-top: 1rem;
+    margin: 1rem 19rem;
 }
 
 .walkTime {
@@ -46,4 +45,8 @@ body {
 .no-decoration {
     border: none;
     box-shadow: none;
+}
+
+.detailsPage{
+    margin: 0 auto;
 }

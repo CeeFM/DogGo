@@ -3,29 +3,30 @@
 @{
     ViewData["Title"] = "Profile";
 }
-<div class="container-fluid mx-0">
+<div class="container-fluid detailsPage">
 <div>
-    <h1 class="walkerProfile pb-3">Walker Profile</h1>
+    <div class="walkerProfile">
+    <h1 class="p-lg-3" style="margin-left: 18rem;">Walker Profile</h1>
 
     <section class="container walkerProfile">
-        <img style="width:100px;float:left;margin-right:20px;padding-bottom:1rem;"
+        <img style="width:100px;float:left;margin-right:0;padding-bottom:1rem;"
              src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Font_Awesome_5_regular_user-circle.svg" />
-        <div>
+        <div style="padding-top: 2rem; margin-left: 7.5rem;">
             <label class="font-weight-bold">Name:</label>
             <span>@Model.Walker.Name</span>
         </div>
-        <div>
+                <div style="margin-left: 7.5rem;">
             <label class="font-weight-bold">Neighborhood:</label>
             <span>@Model.Walker.Neighborhood.Name</span>
         </div>
     </section>
     <div class="clearfix walkerProfile"></div>
+    </div>
 
     <div class="row" style="min-height: 100vh;">
         <section class="col-8 container mt-5">
-            <h2 class="text-left">Recent Walks</h2>
-
             <div class="table-container">
+              <h2 class="text-left">Recent Walks</h2>
                 <table class="table">
                     <thead>
                         <tr>
@@ -96,8 +97,8 @@
                 }
             }
 
-        <h2 class="mt-5">
-            Total Walk Time:
+        <h2 class="mt-5" style="padding-left: 2rem;">
+                <span style="color: grey;">Total Walk Time:</span>
             
                    @(hours >= 1 ? hours.ToString() + " hr " + remainingMinutes.ToString() + " min" : minutes + " min")
 
