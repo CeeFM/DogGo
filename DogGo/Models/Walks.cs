@@ -17,6 +17,8 @@ namespace DogGo.Models
         [Required]
         [DisplayName("Dog")]
         public int DogId { get; set; }
+        [DisplayName("Dog(s)")]
+        public List<int> SelectedDogs { get; set; }
         public Walker Walker { get; set; }
         public Dog Dog { get; set; }
 

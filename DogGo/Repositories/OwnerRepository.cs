@@ -108,6 +108,15 @@ namespace DogGo.Repositories
                                 OwnerId = reader.GetInt32(reader.GetOrdinal("Id"))
                             };
 
+                            if (reader.IsDBNull(reader.GetOrdinal("Notes")) == false)
+                            {
+                                dog.Notes = reader.GetString(reader.GetOrdinal("Notes"));
+                            }
+                            if (reader.IsDBNull(reader.GetOrdinal("ImageUrl")) == false)
+                            {
+                                dog.ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"));
+                            }
+
                             owner.Dogs.Add(dog);
                         }
 

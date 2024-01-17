@@ -43,9 +43,17 @@ namespace DogGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Walks walk)
         {
+            int i = 0;
+
             try
             {
-                _walksRepo.AddWalk(walk);
+                while (i < walk.SelectedDogs.Count)
+                {
+                    walk.Dog = _dogRepo.GetDogById(walk.SelectedDogs[i]);
+                    walk.DogId = walk.Dog.Id;
+                    _walksRepo.AddWalk(walk);
+                    i++;
+                }
 
                 return RedirectToAction("Index");
             }
