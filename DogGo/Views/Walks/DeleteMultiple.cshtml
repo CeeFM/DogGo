@@ -1,0 +1,25 @@
+﻿@model DogGo.Models.ViewModels.DeleteWalkViewModel
+
+@{
+    ViewData["Title"] = "DeleteMultiple";
+}
+
+<h1>Oh you fully erasing history huh? Cool that's awesome teach me how!!</h1>
+
+<div>
+    <h4>Select One or More Walks To Delete</h4>
+    <form asp-action="DeleteMultiple">
+    <div class="form-group">
+        <label asp-for="Walk.SelectedIDs" class="control-label">Walks</label>
+        <select asp-for="Walk.SelectedIDs" class="form-control" multiple>
+            @foreach (Walks walk in Model.Walks)
+            {
+                <option value="@walk.Id">@walk.Date - @walk.Duration - @walk.Dog.Name - @walk.Walker.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Walk.SelectedIDs" class="text-danger"></span>
+    </div>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
