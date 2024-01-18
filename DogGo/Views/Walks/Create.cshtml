@@ -39,14 +39,14 @@
                 <span asp-validation-for="Walk.WalkerId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Walk.SelectedDogs" class="control-label">Select Dog</label>
-                <select asp-for="Walk.SelectedDogs" class="form-control" multiple>
+                <label asp-for="Walk.SelectedIDs" class="control-label">Select Dog</label>
+                <select asp-for="Walk.SelectedIDs" class="form-control" multiple>
                 @foreach (Dog dog in Model.Dogs)
                 {
                     <option value="@dog.Id">@dog.Name</option>
                 }
                 </select>
-                <span asp-validation-for="Walk.SelectedDogs" class="text-danger"></span>
+                <span asp-validation-for="Walk.SelectedIDs" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

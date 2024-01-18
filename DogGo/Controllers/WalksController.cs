@@ -47,9 +47,9 @@ namespace DogGo.Controllers
 
             try
             {
-                while (i < walk.SelectedDogs.Count)
+                while (i < walk.SelectedIDs.Count)
                 {
-                    walk.Dog = _dogRepo.GetDogById(walk.SelectedDogs[i]);
+                    walk.Dog = _dogRepo.GetDogById(walk.SelectedIDs[i]);
                     walk.DogId = walk.Dog.Id;
                     _walksRepo.AddWalk(walk);
                     i++;
@@ -100,6 +100,42 @@ namespace DogGo.Controllers
             try
             {
                 _walksRepo.DeleteWalk(id);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(walk);
+            }
+        }
+
+        public ActionResult DeleteMultiple()
+        {
+            List<Walks> walks = _walksRepo.GetAllWalks();
+
+            DeleteWalkViewModel vm = new DeleteWalkViewModel()
+            {
+                Walk = new Walks(),
+                Walks = walks
+            };
+
+            return View(vm);
+        }
+
+        // POST: Walks/DeleteMultiple
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteMultiple(Walks walk)
+        {
+            int i = walk.SelectedIDs.Count;
+            try
+            {
+                while (i > 0)
+                {
+                    _walksRepo.DeleteWalk(walk.SelectedIDs[i - 1]);
+                    i--;
+                }
+
 
                 return RedirectToAction("Index");
             }
