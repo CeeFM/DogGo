@@ -109,6 +109,7 @@ namespace DogGo.Controllers
             }
         }
 
+        // GET: Walks/DeleteMultiple
         public ActionResult DeleteMultiple()
         {
             List<Walks> walks = _walksRepo.GetAllWalks();
